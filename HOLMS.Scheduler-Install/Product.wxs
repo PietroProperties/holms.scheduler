@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="*" Name="HOLMS Scheduler Background Service" Language="1033" Version="$(var.FullVersion)" Manufacturer="shortbar" UpgradeCode="0b265212-33b0-4c29-88e4-0451c1775a08">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
+    <Media Id="1" Cabinet="HOLMSServices.cab" EmbedCab="yes" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+		<Feature Id="ProductFeature" Title="HOLMS.Scheduler_Install" Level="1" Display="expand" ConfigurableDirectory="INSTALLFOLDER">
+      <ComponentRef Id="SchedulerService"/>
+      <ComponentRef Id="RegistrySettings"/>
+		</Feature>
+	</Product>
+  
+  <Fragment>
+    <Property Id="APPSVCIPPORTVALUE" Value="NotSet">
+      <RegistrySearch Id="AppSvcIpPortLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="AppSvcIPPort" />
+    </Property>
+    <Property Id="IIFEXPORTDIRVALUE" Value="NotSet">
+      <RegistrySearch Id="IIFExportDirRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="IIFExportPath"/>
+    </Property>
+    <Property Id="SERVICEUSERNAMEVALUE" Value="NotSet">
+      <RegistrySearch Id="ServiceUsernameRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="ServiceUsername"/>
+    </Property>
+    <Property Id="SERVICEPASSWORDVALUE" Value="NotSet">
+      <RegistrySearch Id="ServicePasswordRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="ServicePassword"/>
+    </Property>
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistrySettings" Guid="E9CE6A56-10F1-4A0F-9A49-8D3C3A8504EC" Permanent="yes" Win64="yes">
+        <RegistryKey Root="HKLM" Key ="SOFTWARE\HOLMS\SchedulerSvc">
+          <RegistryValue Type="string" Name="AppSvcIPPort" Value="[APPSVCIPPORTVALUE]" />
+          <RegistryValue Type="string" Name="IIFExportPath" Value="[IIFEXPORTDIRVALUE]" />
+          <RegistryValue Type="string" Name="ServiceUsername" Value="[SERVICEUSERNAMEVALUE]" />
+          <RegistryValue Type="string" Name="ServicePassword" Value="[SERVICEPASSWORDVALUE]" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="HOLMS">
+          <Directory Id="ServiceDirectory" Name="Scheduler">
+            <Component Id="SchedulerService" Guid="5772AD2E-20C4-49EE-A251-91CA3F171C69" Win64="yes">
+              <!-- Scheduler Service -->
+              <File Id ="SchedulerServiceInstaller" Name="HOLMS.Scheduler.exe"
+                    Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\HOLMS.Scheduler.exe" KeyPath="yes" DiskId="1"/>
+              <File Id="BouncyCastle.Crypto.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\BouncyCastle.Crypto.dll" Checksum="yes" />
+              <File Id="Castle.Core.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Castle.Core.dll" Checksum="yes" />
+              <File Id="Common.Logging.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Common.Logging.dll"/>
+              <File Id="Common.Logging.Core.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Common.Logging.Core.dll"/>
+              <File Id="Google.Apis.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Apis.dll" Checksum="yes" />
+              <File Id="Google.Apis.Auth.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Apis.Auth.dll" Checksum="yes" />
+              <File Id="Google.Apis.Auth.PlatformServices.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Apis.Auth.PlatformServices.dll" Checksum="yes" />
+              <File Id="Google.Apis.Core.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Apis.Core.dll" Checksum="yes" />
+              <File Id="Google.Apis.PlatformServices.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Apis.PlatformServices.dll" Checksum="yes" />
+              <File Id="Google.Protobuf.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Protobuf.dll" Checksum="yes" />
+              <File Id="Grpc.Auth.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Grpc.Auth.dll" Checksum="yes" />
+              <File Id="Grpc.Core.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Grpc.Core.dll" Checksum="yes" />
+                  <File Id="grpc_csharp_ext.x64.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\grpc_csharp_ext.x64.dll" Checksum="yes" />
+              <File Id="HOLMS.Platform.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\HOLMS.Platform.dll" Checksum="yes" />
+              <File Id="log4net.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\log4net.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Configuration.Abstractions.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Logging.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Logging.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Logging.Abstractions.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Logging.Abstractions.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Logging.Console.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Logging.Console.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Logging.EventLog.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Logging.EventLog.dll" Checksum="yes" />
+              <File Id="Microsoft.Extensions.Primitives.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Primitives.dll" Checksum="yes" />
+              <File Id="Microsoft.IdentityModel.Logging.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.IdentityModel.Logging.dll" Checksum="yes" />
+              <File Id="Microsoft.IdentityModel.Tokens.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.IdentityModel.Tokens.dll" Checksum="yes" />
+              <File Id="Microsoft.Win32.Primitives.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Win32.Primitives.dll" Checksum="yes" />
+              <File Id="Moq.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Moq.dll" Checksum="yes" />
+              <File Id="Newtonsoft.Json.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Newtonsoft.Json.dll" Checksum="yes" />
+              <File Id="NodaTime.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\NodaTime.dll" Checksum="yes" />
+              <File Id="nunit.framework.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\nunit.framework.dll" Checksum="yes" />
+              <File Id="Quartz.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Quartz.dll" />
+              <File Id="System.AppContext.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.AppContext.dll" Checksum="yes" />
+              <File Id="System.Console.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Console.dll" Checksum="yes" />
+              <File Id="System.Diagnostics.DiagnosticSource.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Diagnostics.DiagnosticSource.dll" Checksum="yes" />
+              <File Id="System.Diagnostics.Tracing.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Diagnostics.Tracing.dll" Checksum="yes" />
+              <File Id="System.Globalization.Calendars.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Globalization.Calendars.dll" Checksum="yes" />
+              <File Id="System.IdentityModel.Tokens.Jwt.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IdentityModel.Tokens.Jwt.dll" Checksum="yes" />
+              <File Id="System.Interactive.Async.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Interactive.Async.dll" Checksum="yes" />
+              <File Id="System.IO.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.dll" Checksum="yes" />
+              <File Id="System.IO.Compression.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.Compression.dll" Checksum="yes" />
+              <File Id="System.IO.Compression.ZipFile.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.Compression.ZipFile.dll" Checksum="yes" />
+              <File Id="System.IO.FileSystem.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.FileSystem.dll" Checksum="yes" />
+              <File Id="System.IO.FileSystem.Primitives.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.FileSystem.Primitives.dll" Checksum="yes" />
+              <File Id="System.Net.Http.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Net.Http.dll" Checksum="yes" />
+              <File Id="System.Net.Sockets.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Net.Sockets.dll" Checksum="yes" />
+              <File Id="System.Reflection.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Reflection.dll" Checksum="yes" />
+              <File Id="System.Runtime.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Runtime.dll" Checksum="yes" />
+              <File Id="System.Runtime.Extensions.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Runtime.Extensions.dll" Checksum="yes" />
+              <File Id="System.Runtime.InteropServices.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Runtime.InteropServices.dll" Checksum="yes" />
+              <File Id="System.Runtime.InteropServices.RuntimeInformation.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Runtime.InteropServices.RuntimeInformation.dll" Checksum="yes" />
+              <File Id="System.Security.Claims.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Claims.dll" Checksum="yes" />
+              <File Id="System.Security.Cryptography.Algorithms.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.Algorithms.dll" Checksum="yes" />
+              <File Id="System.Security.Cryptography.Encoding.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.Encoding.dll" Checksum="yes" />
+              <File Id="System.Security.Cryptography.Primitives.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.Primitives.dll" Checksum="yes" />
+              <File Id="System.Security.Cryptography.X509Certificates.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.X509Certificates.dll" Checksum="yes" />
+              <File Id="Zlib.Portable.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Zlib.Portable.dll" Checksum="yes" />
+              
+              <ServiceInstall Id ="HOLMSSchedulerService" Name="HOLMSSchedulerService" Type="ownProcess"
+                              DisplayName="HOLMS-Scheduler-Service" Start="demand" Account="NT AUTHORITY\LocalService" ErrorControl="normal" 
+                              Interactive="no" Vital="yes"
+                              Description="Scheduler Service for the the HOLMS system.">
+              </ServiceInstall>
+              <util:EventSource Name="Scheduler" Log="HOLMS"
+                                EventMessageFile="[NETFRAMEWORK40INSTALLROOTDIR]EventLogMessages.dll"/>
+              <ServiceControl Id="HOLMSSchedulerControl" Stop="uninstall" Remove="uninstall"
+                              Name="HOLMSSchedulerService" Wait="yes"/>
+            </Component>
+          </Directory>
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+</Wix>

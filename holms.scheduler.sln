@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOLMS.Scheduler", "HOLMS.Scheduler\HOLMS.Scheduler.csproj", "{45123E97-1C42-47B0-9154-41E5F9A62E14}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "HOLMS.Scheduler-Install", "HOLMS.Scheduler-Install\HOLMS.Scheduler-Install.wixproj", "{EA292A54-5CA3-448E-BA04-3B9004432B1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45123E97-1C42-47B0-9154-41E5F9A62E14}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{45123E97-1C42-47B0-9154-41E5F9A62E14}.Debug|Any CPU.Build.0 = Debug|x64
+		{45123E97-1C42-47B0-9154-41E5F9A62E14}.Release|Any CPU.ActiveCfg = Release|x64
+		{EA292A54-5CA3-448E-BA04-3B9004432B1F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{EA292A54-5CA3-448E-BA04-3B9004432B1F}.Debug|Any CPU.Build.0 = Debug|x64
+		{EA292A54-5CA3-448E-BA04-3B9004432B1F}.Release|Any CPU.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
