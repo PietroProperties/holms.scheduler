@@ -1,13 +1,11 @@
 ﻿using System.ServiceProcess;
 
-namespace HOLMS.Scheduler
-{
+namespace HOLMS.Scheduler {
     static class Program {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
-        {
+        static void Main() {
             var services = new ServiceBase[] {
                 new SchedulerService()
             };
