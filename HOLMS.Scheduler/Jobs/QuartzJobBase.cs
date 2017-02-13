@@ -11,10 +11,11 @@ namespace HOLMS.Scheduler.Jobs {
 
         public void Execute(IJobExecutionContext ctx) {
             try {
-                var ac = JobEnvConstructor.GetAppServiceClient();
-                ac.Logger.LogInformation(JobName + " execution started");
-                ExecuteLogged(ctx, ac);
-                ac.Logger.LogInformation(JobName + " execution completed");
+                using (var ac = JobEnvConstructor.GetAppServiceClient()) {
+                    ac.Logger.LogInformation(JobName + " execution started");
+                    ExecuteLogged(ctx, ac);
+                    ac.Logger.LogInformation(JobName + " execution completed");
+                }
             } catch (Exception ex) {
                 var logger = JobEnvConstructor.GetLogger();
                 logger.LogError($"Caught unhandled exception in {JobGroup}:{JobName}", ex);
