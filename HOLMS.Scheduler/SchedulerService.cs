@@ -30,6 +30,7 @@ namespace HOLMS.Scheduler {
             _jobSchedulers.Add(new RevenueAccrualScheduler(ac, _schedulerFactory));
             _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(ac, _schedulerFactory));
             _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(ac, _schedulerFactory));
+            _jobSchedulers.Add(new OTASyncScheduler(ac, _schedulerFactory));
 
             ac.Logger.LogInformation("Passing command-line arguments to tasks");
             foreach (var t in _jobSchedulers) {
