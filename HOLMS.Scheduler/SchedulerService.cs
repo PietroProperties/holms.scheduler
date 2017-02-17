@@ -22,15 +22,17 @@ namespace HOLMS.Scheduler {
             if (args.Contains("--debugger")) {
                 System.Diagnostics.Debugger.Launch();
             }
-            RegistryConfigurationProvider.VerifyConfiguration(JobEnvConstructor.GetLogger());
+            Globals.BuildApplicationClient();
+            var logger = JobEnvConstructor.GetLogger();
+            RegistryConfigurationProvider.VerifyConfiguration(logger);
             var ac = JobEnvConstructor.GetAppServiceClient();
 
             ac.Logger.LogInformation("SchedulerService starting. Creating tasks");
-            _jobSchedulers.Add(new AccountingTransactionExportScheduler(ac, _schedulerFactory));
-            _jobSchedulers.Add(new RevenueAccrualScheduler(ac, _schedulerFactory));
-            _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(ac, _schedulerFactory));
-            _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(ac, _schedulerFactory));
-            _jobSchedulers.Add(new OTASyncScheduler(ac, _schedulerFactory));
+            _jobSchedulers.Add(new AccountingTransactionExportScheduler(logger, _schedulerFactory));
+            _jobSchedulers.Add(new RevenueAccrualScheduler(logger, _schedulerFactory));
+            _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(logger, _schedulerFactory));
+            _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(logger, _schedulerFactory));
+            _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));
 
             ac.Logger.LogInformation("Passing command-line arguments to tasks");
             foreach (var t in _jobSchedulers) {

@@ -14,7 +14,7 @@ namespace HOLMS.Scheduler.Schedulers {
         private bool _immediateRunRequested;
         private const int _secondsInterval = 180;
 
-        public OTASyncScheduler(IApplicationClient ac, ISchedulerFactory scheduler) : base(ac, scheduler) {
+        public OTASyncScheduler(ILogger log, ISchedulerFactory scheduler) : base(log, scheduler) {
         }
 
         public override void ParseCommandLineArgs(string[] args) {

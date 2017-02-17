@@ -10,8 +10,8 @@ namespace HOLMS.Scheduler.Schedulers {
         private const string ImmediateRunFlag = "--immediateaccrual";
         private bool _immediateRunRequested;
 
-        public RevenueAccrualScheduler(IApplicationClient ac, ISchedulerFactory sf)
-            : base(ac, sf) { }
+        public RevenueAccrualScheduler(ILogger logger, ISchedulerFactory sf)
+            : base(logger, sf) { }
 
         public override void ParseCommandLineArgs(string[] args) {
             _immediateRunRequested = args.Contains(ImmediateRunFlag);
