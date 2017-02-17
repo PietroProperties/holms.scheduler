@@ -8,8 +8,8 @@ namespace HOLMS.Scheduler.Schedulers {
     class HousekeepingDirtyRolloverScheduler : TaskSchedulerBase {
         private const string ImmediateRunFlag = "--immediatehkrollover";
         private bool _immediateRunRequested;
-        public HousekeepingDirtyRolloverScheduler(IApplicationClient ac, ISchedulerFactory sf) : 
-            base(ac, sf) { }
+        public HousekeepingDirtyRolloverScheduler(ILogger logger, ISchedulerFactory sf) : 
+            base(logger, sf) { }
 
         public override void ParseCommandLineArgs(string[] args) {
             _immediateRunRequested = args.Contains(ImmediateRunFlag);

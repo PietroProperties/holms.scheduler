@@ -4,18 +4,15 @@ using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {
     internal abstract class TaskSchedulerBase {
-        protected readonly IApplicationClient DC;
         protected readonly ISchedulerFactory SF;
-
-        protected ILogger Logger => DC.Logger;
-
+        protected ILogger Logger;
         public abstract void ParseCommandLineArgs(string[] args);
 
         public abstract void Schedule();
 
-        protected TaskSchedulerBase(IApplicationClient ac, ISchedulerFactory scheduler) {
-            DC = ac;
+        protected TaskSchedulerBase(ILogger logger, ISchedulerFactory scheduler) {
             SF = scheduler;
+            Logger = logger;
         }
     }
 }

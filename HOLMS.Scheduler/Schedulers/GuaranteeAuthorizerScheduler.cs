@@ -10,8 +10,8 @@ namespace HOLMS.Scheduler.Schedulers {
         private const string ImmediateRunFlag = "--immediateguaranteeauthorization";
         private bool _immediateRunRequested;
 
-        public GuaranteeAuthorizerScheduler(IApplicationClient ac, ISchedulerFactory sf)
-            : base(ac, sf) { }
+        public GuaranteeAuthorizerScheduler(ILogger logger, ISchedulerFactory sf)
+            : base(logger, sf) { }
 
         public override void ParseCommandLineArgs(string[] args) {
             _immediateRunRequested = args.Contains(ImmediateRunFlag);

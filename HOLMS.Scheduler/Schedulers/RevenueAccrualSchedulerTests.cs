@@ -24,7 +24,7 @@ namespace HOLMS.Scheduler.Schedulers {
 
         [Test]
         public void DefaultArgumentsSchedulesTaskAndJob() {
-            var ras = new RevenueAccrualScheduler(_mac, _sf.Object);
+            var ras = new RevenueAccrualScheduler(_mac.Logger, _sf.Object);
             ras.ParseCommandLineArgs(new string[] {});
 
             Assert.AreEqual(0, _sched.ScheduleJobCallCount);
@@ -38,7 +38,7 @@ namespace HOLMS.Scheduler.Schedulers {
 
         [Test]
         public void ImmediateAccrualArgSchedulesImmediateRun() {
-            var ras = new RevenueAccrualScheduler(_mac, _sf.Object);
+            var ras = new RevenueAccrualScheduler(_mac.Logger, _sf.Object);
             ras.ParseCommandLineArgs(new string[] { "--immediateaccrual" });
 
             Assert.AreEqual(0, _sched.ScheduleJobCallCount);

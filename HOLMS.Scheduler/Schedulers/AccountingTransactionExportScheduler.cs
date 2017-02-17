@@ -16,8 +16,8 @@ namespace HOLMS.Scheduler.Schedulers {
         private InclusiveCalendarDateRange _reportRange;
         private bool _immediateReportRequested;
 
-        public AccountingTransactionExportScheduler(IApplicationClient ac, ISchedulerFactory sf)
-                : base(ac, sf) {
+        public AccountingTransactionExportScheduler(ILogger logger, ISchedulerFactory sf)
+                : base(logger, sf) {
             _outputPath = RegistryConfigurationProvider.GetIIFExportDirectoryString();
         }
 
