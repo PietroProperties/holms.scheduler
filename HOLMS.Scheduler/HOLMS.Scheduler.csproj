@@ -74,7 +74,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="HOLMS.Platform, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HOLMS.Platform.1.0.3-v125\lib\netstandard1.5\HOLMS.Platform.dll</HintPath>
+      <HintPath>..\packages\HOLMS.Platform.1.0.3-v167\lib\netstandard1.5\HOLMS.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">

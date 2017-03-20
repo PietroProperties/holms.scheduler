@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 	<Product Id="*" Name="HOLMS Scheduler Background Service" Language="1033" Version="$(var.FullVersion)" Manufacturer="shortbar" UpgradeCode="0b265212-33b0-4c29-88e4-0451c1775a08">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
     <Media Id="1" Cabinet="HOLMSServices.cab" EmbedCab="yes" />
@@ -38,8 +39,9 @@
   </Fragment>
 
 	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFiles64Folder">
+	<PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64" />
+	<Directory Id="TARGETDIR" Name="SourceDir">
+	<Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="HOLMS">
           <Directory Id="ServiceDirectory" Name="Scheduler">
             <Component Id="SchedulerService" Guid="5772AD2E-20C4-49EE-A251-91CA3F171C69" Win64="yes">
@@ -108,7 +110,7 @@
                               Description="Scheduler Service for the the HOLMS system.">
               </ServiceInstall>
               <util:EventSource Name="Scheduler" Log="HOLMS"
-                                EventMessageFile="[NETFRAMEWORK40INSTALLROOTDIR]EventLogMessages.dll"/>
+                                EventMessageFile="[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]EventLogMessages.dll"/>
               <ServiceControl Id="HOLMSSchedulerControl" Stop="uninstall" Remove="uninstall"
                               Name="HOLMSSchedulerService" Wait="yes"/>
             </Component>
