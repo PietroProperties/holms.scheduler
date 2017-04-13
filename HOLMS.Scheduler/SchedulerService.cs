@@ -22,35 +22,33 @@ namespace HOLMS.Scheduler {
             if (args.Contains("--debugger")) {
                 System.Diagnostics.Debugger.Launch();
             }
-            Globals.BuildApplicationClient();
-            var logger = JobEnvConstructor.GetLogger();
+            var logger = Globals.Logger;
             RegistryConfigurationProvider.VerifyConfiguration(logger);
-            var ac = JobEnvConstructor.GetAppServiceClient();
 
-            ac.Logger.LogInformation("SchedulerService starting. Creating tasks");
+            logger.LogInformation("SchedulerService starting. Creating tasks");
             _jobSchedulers.Add(new AccountingTransactionExportScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new RevenueAccrualScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));
 
-            ac.Logger.LogInformation("Passing command-line arguments to tasks");
+            logger.LogInformation("Passing command-line arguments to tasks");
             foreach (var t in _jobSchedulers) {
                 t.ParseCommandLineArgs(args);
             }
 
-            ac.Logger.LogInformation("Scheduling tasks");
+            logger.LogInformation("Scheduling tasks");
             foreach (var t in _jobSchedulers) {
                 t.Schedule();
             }
 
-            ac.Logger.LogInformation("Starting main execution loop");
+            logger.LogInformation("Starting main execution loop");
             var scheduler = _schedulerFactory.GetScheduler();
             scheduler.Start();
         }
 
         protected override void OnStop() {
-            var logger = JobEnvConstructor.GetLogger();
+            var logger = Globals.Logger;
             logger.LogInformation("Stopping service");
 
             var scheduler = _schedulerFactory.GetScheduler();

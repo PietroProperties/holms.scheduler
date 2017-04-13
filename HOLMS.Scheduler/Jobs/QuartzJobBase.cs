@@ -16,7 +16,7 @@ namespace HOLMS.Scheduler.Jobs {
                 ExecuteLogged(ctx, ac);
                 ac.Logger.LogInformation(JobName + " execution completed");
             } catch (Exception ex) {
-                var logger = JobEnvConstructor.GetLogger();
+                var logger = Globals.Logger;
                 logger.LogError(new EventId(), ex, $"Caught unhandled exception in {JobGroup}:{JobName}");
                 logger.LogError("Re-throwing to abort the job");
 
