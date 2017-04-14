@@ -35,9 +35,6 @@ namespace HOLMS.Scheduler {
             _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));
 
             ac.Logger.LogInformation("Passing command-line arguments to tasks");
-            foreach (var t in _jobSchedulers) {
-                t.ParseCommandLineArgs(args);
-            }
 
             ac.Logger.LogInformation("Scheduling tasks");
             foreach (var t in _jobSchedulers) {

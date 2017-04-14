@@ -7,8 +7,6 @@ namespace HOLMS.Scheduler.Schedulers {
         public GuaranteeAuthorizerScheduler(ILogger logger, ISchedulerFactory sf)
             : base(logger, sf) { }
 
-        public override void ParseCommandLineArgs(string[] args) { }
-
         public override void Schedule() {
             var sched = SF.GetScheduler();
             var basedata = new JobDataMap();
