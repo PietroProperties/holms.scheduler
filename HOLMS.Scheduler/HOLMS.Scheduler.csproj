@@ -263,7 +263,6 @@
     <Compile Include="Schedulers\OTASyncScheduler.cs" />
     <Compile Include="Support\Exceptions\RegistrySettingNotFoundException.cs" />
     <Compile Include="Support\Exceptions\RegistrySettingNotSetException.cs" />
-    <Compile Include="JobEnvConstructor.cs" />
     <Compile Include="Jobs\HousekeepingDirtyRolloverJob.cs" />
     <Compile Include="Jobs\QuartzJobBase.cs" />
     <Compile Include="Jobs\RevenueAccrualJob.cs" />
