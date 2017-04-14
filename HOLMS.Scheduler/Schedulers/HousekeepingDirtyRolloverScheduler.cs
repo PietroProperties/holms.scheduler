@@ -6,20 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace HOLMS.Scheduler.Schedulers {
     class HousekeepingDirtyRolloverScheduler : TaskSchedulerBase {
-        private const string ImmediateRunFlag = "--immediatehkrollover";
-        private bool _immediateRunRequested;
         public HousekeepingDirtyRolloverScheduler(ILogger logger, ISchedulerFactory sf) : 
             base(logger, sf) { }
 
-        public override void ParseCommandLineArgs(string[] args) {
-            _immediateRunRequested = args.Contains(ImmediateRunFlag);
-        }
 
         public override void Schedule() {
             var sched = SF.GetScheduler();
-            var basedata = new JobDataMap() {
-                { HousekeepingDirtyRolloverJob.ImmediateRunBoolean, _immediateRunRequested}
-            };
+            var basedata = new JobDataMap();
 
             var job = JobBuilder
                 .Create<HousekeepingDirtyRolloverJob>()
@@ -27,28 +20,16 @@ namespace HOLMS.Scheduler.Schedulers {
                     HousekeepingDirtyRolloverJob.JobGroupString)
                 .SetJobData(basedata)
                 .Build();
-
-            if (_immediateRunRequested) {
-                Logger.LogInformation("Scheduling single immediate run of the housekeeping dirty rollover job");
-                var trigger = TriggerBuilder.Create()
-                    .WithIdentity("HousekeepingRolloverImmediate",
-                        HousekeepingDirtyRolloverJob.JobGroupString)
-                    .ForJob(job.Key)
-                    .StartAt(DateBuilder.FutureDate(10, IntervalUnit.Second))
-                    .Build();
-                sched.ScheduleJob(job, trigger);
-            } else {
-                Logger.LogInformation($"Scheduling housekeeping dirty rollover job to run once per {HousekeepingDirtyRolloverJob.JobPeriodMins} minutes");
-                var trigger = TriggerBuilder.Create()
-                    .WithIdentity("HousekeepingRolloverPeriodic", RevenueAccrualJob.JobGroupString)
-                    .ForJob(job.Key)
-                    .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Second))
-                    .WithSimpleSchedule(x => x
-                        .WithIntervalInMinutes(HousekeepingDirtyRolloverJob.JobPeriodMins)
-                        .RepeatForever())
-                    .Build();
-                sched.ScheduleJob(job, trigger);
-            }
+            Logger.LogInformation($"Scheduling housekeeping dirty rollover job to run once per {HousekeepingDirtyRolloverJob.JobPeriodMins} minutes");
+            var trigger = TriggerBuilder.Create()
+                .WithIdentity("HousekeepingRolloverPeriodic", RevenueAccrualJob.JobGroupString)
+                .ForJob(job.Key)
+                .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Second))
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInMinutes(HousekeepingDirtyRolloverJob.JobPeriodMins)
+                    .RepeatForever())
+                .Build();
+            sched.ScheduleJob(job, trigger);
         }
     }
 }

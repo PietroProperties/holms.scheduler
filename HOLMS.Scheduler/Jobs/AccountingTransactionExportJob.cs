@@ -23,23 +23,6 @@ namespace HOLMS.Scheduler.Jobs {
         public override string JobName => JobNameString;
 
         protected override void ExecuteLogged(IJobExecutionContext context, ApplicationClient ac) {
-            if (context.MergedJobDataMap.GetString(RunTypeKey) != "Auto") {
-                ac.Logger.LogInformation("IIF export task executing with immediate run request");
-                ExecuteImmediate(ac, context);
-            } else {
-                ExecuteDelayed(ac, context);
-            }
-        }
-
-        private void ExecuteImmediate(ApplicationClient ac, IJobExecutionContext ctx) {
-            var start = ctx.MergedJobDataMap.GetDateTime(StartDateKey);
-            var end = ctx.MergedJobDataMap.GetDateTime(EndDateKey);
-            var pathString = ctx.JobDetail.JobDataMap.GetString(OutputPathKey);
-
-            WriteReport(ac, new InclusiveCalendarDateRange(start, end), pathString);
-        }
-
-        private void ExecuteDelayed(ApplicationClient ac, IJobExecutionContext ctx) {
             var jobStatus = ac.AccountingTxnSvc.GetExportJobStatus(new Empty());
 
             if (!jobStatus.DueForNextRun) {
@@ -49,12 +32,13 @@ namespace HOLMS.Scheduler.Jobs {
             // Export the range [last exported+1, today-1]
             var start = jobStatus.LastExportCompleted.ToDateTime().AddDays(1);
             var end = DateTime.Today.AddDays(-1);
-            var pathString = ctx.JobDetail.JobDataMap.GetString(OutputPathKey);
+            var pathString = context.JobDetail.JobDataMap.GetString(OutputPathKey);
 
             WriteReport(ac, new InclusiveCalendarDateRange(start, end), pathString);
 
             ac.AccountingTxnSvc.UpdateLastExportRunTime(end.ToTS());
         }
+
 
         private void WriteReport(ApplicationClient ac, InclusiveCalendarDateRange dr, string pathString) {
             var properties = ac.PropertySvc.All(new Empty()).Properties;

@@ -6,7 +6,6 @@ namespace HOLMS.Scheduler.Schedulers {
     internal abstract class TaskSchedulerBase {
         protected readonly ISchedulerFactory SF;
         protected ILogger Logger;
-        public abstract void ParseCommandLineArgs(string[] args);
 
         public abstract void Schedule();
 

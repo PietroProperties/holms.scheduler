@@ -25,7 +25,6 @@ namespace HOLMS.Scheduler.Schedulers {
         [Test]
         public void DefaultArgumentsSchedulesTaskAndJob() {
             var ras = new RevenueAccrualScheduler(_mac.Logger, _sf.Object);
-            ras.ParseCommandLineArgs(new string[] {});
 
             Assert.AreEqual(0, _sched.ScheduleJobCallCount);
             ras.Schedule();
@@ -33,18 +32,6 @@ namespace HOLMS.Scheduler.Schedulers {
             // Not the most satisfying test case -- we want to check the scheduling interval,
             // but Quartz's objects don't make it easy.
             Assert.AreEqual("RevenueAccrualPeriodic", _sched.ScheduleJobTrigger.Key.Name);
-            Assert.AreEqual(RevenueAccrualJob.JobGroupString, _sched.ScheduleJobTrigger.Key.Group);
-        }
-
-        [Test]
-        public void ImmediateAccrualArgSchedulesImmediateRun() {
-            var ras = new RevenueAccrualScheduler(_mac.Logger, _sf.Object);
-            ras.ParseCommandLineArgs(new string[] { "--immediateaccrual" });
-
-            Assert.AreEqual(0, _sched.ScheduleJobCallCount);
-            ras.Schedule();
-            Assert.AreEqual(1, _sched.ScheduleJobCallCount);
-            Assert.AreEqual("RevenueAccrualImmediate", _sched.ScheduleJobTrigger.Key.Name);
             Assert.AreEqual(RevenueAccrualJob.JobGroupString, _sched.ScheduleJobTrigger.Key.Group);
         }
     }
