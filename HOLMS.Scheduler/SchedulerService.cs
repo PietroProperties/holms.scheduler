@@ -22,7 +22,7 @@ namespace HOLMS.Scheduler {
             if (args.Contains("--debugger")) {
                 System.Diagnostics.Debugger.Launch();
             }
-            var logger = Globals.Logger;
+            var logger = JobEnvConstructor.GetLogger();
             RegistryConfigurationProvider.VerifyConfiguration(logger);
 
             logger.LogInformation("SchedulerService starting. Creating tasks");
@@ -45,7 +45,7 @@ namespace HOLMS.Scheduler {
         }
 
         protected override void OnStop() {
-            var logger = Globals.Logger;
+            var logger = JobEnvConstructor.GetLogger();
             logger.LogInformation("Stopping service");
 
             var scheduler = _schedulerFactory.GetScheduler();

@@ -10,17 +10,18 @@ namespace HOLMS.Scheduler.Jobs {
         protected abstract void ExecuteLogged(IJobExecutionContext context, ApplicationClient ac);
 
         public void Execute(IJobExecutionContext ctx) {
-            try {
-                var ac = Globals.AC;
-                ac.Logger.LogInformation(JobName + " execution started");
-                ExecuteLogged(ctx, ac);
-                ac.Logger.LogInformation(JobName + " execution completed");
-            } catch (Exception ex) {
-                var logger = Globals.Logger;
-                logger.LogError(new EventId(), ex, $"Caught unhandled exception in {JobGroup}:{JobName}");
-                logger.LogError("Re-throwing to abort the job");
+            using (var ac = JobEnvConstructor.GetAppServiceClient()) {
+                try {
+                    ac.Logger.LogInformation(JobName + " execution started");
+                    ExecuteLogged(ctx, ac);
+                    ac.Logger.LogInformation(JobName + " execution completed");
+                } catch (Exception ex) {
+                    ac.Logger.LogError(new EventId(), ex, $"Caught unhandled exception in {JobGroup}:{JobName}");
+                    ac.Logger.LogError("Re-throwing to abort the job");
 
-                throw;
+                    throw;
+
+                }
             }
         }
     }

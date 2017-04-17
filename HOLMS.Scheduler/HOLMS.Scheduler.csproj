@@ -253,7 +253,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Globals.cs" />
+    <Compile Include="JobEnvConstructor.cs" />
     <Compile Include="Jobs\GuaranteeAuthorizerJob.cs" />
     <Compile Include="Jobs\OTASyncJob.cs" />
     <Compile Include="SchedulerService.cs">

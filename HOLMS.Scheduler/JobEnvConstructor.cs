@@ -6,16 +6,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.EventLog;
 
 namespace HOLMS.Scheduler {
-    public static class Globals {
-        private static ApplicationClient _ac;
-        private static ILogger _logger;
-
-        // NOTE(DA) I have no love for singletons, but sharing this across the tasks 
-        // (with internal auto-refresh) did seem particularly compelling.
-        public static ApplicationClient AC => _ac ?? (_ac = GetAppServiceClient());
-        public static ILogger Logger => _logger ?? (_logger = GetLogger());
-
-        private static ApplicationClient GetAppServiceClient() {
+    class JobEnvConstructor {
+        public static ApplicationClient GetAppServiceClient() {
             var logger = GetLogger();
 
             try {
@@ -38,7 +30,7 @@ namespace HOLMS.Scheduler {
             }
         }
 
-        private static ILogger GetLogger() {
+        public static ILogger GetLogger() {
             var lf = new LoggerFactory();
             var els = new EventLogSettings {
                 LogName = "HOLMS",

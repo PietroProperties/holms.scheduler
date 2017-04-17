@@ -7,7 +7,6 @@ using HOLMS.Support.Time;
 using HOLMS.Types.Money.Accounting;
 using HOLMS.Types.Money.RPC;
 using HOLMS.Types.TenancyConfig;
-using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Jobs {

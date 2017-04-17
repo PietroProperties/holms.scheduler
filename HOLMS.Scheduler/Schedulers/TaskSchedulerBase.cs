@@ -1,5 +1,4 @@
-﻿using HOLMS.Application.Client;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {

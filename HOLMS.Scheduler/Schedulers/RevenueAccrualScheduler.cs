@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using HOLMS.Application.Client;
-using HOLMS.Scheduler.Jobs;
+﻿using HOLMS.Scheduler.Jobs;
 using Microsoft.Extensions.Logging;
 using Quartz;
 

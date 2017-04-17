@@ -1,7 +1,5 @@
 ﻿using HOLMS.Scheduler.Jobs;
 using Quartz;
-using System.Linq;
-using HOLMS.Application.Client;
 using Microsoft.Extensions.Logging;
 
 namespace HOLMS.Scheduler.Schedulers {

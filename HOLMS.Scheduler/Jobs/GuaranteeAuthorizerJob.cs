@@ -11,8 +11,6 @@ namespace HOLMS.Scheduler.Jobs {
         public override string JobGroup => JobGroupString;
         public override string JobName => JobNameString;
 
-        public const int JobPeriodMins = 1440;
-
         protected override void ExecuteLogged(IJobExecutionContext context, ApplicationClient ac) {
             ac.Logger.LogInformation($"Beginning guarantee authorizer job for tenancy {ac.SC.TenancyName}");
             ac.GuaranteeAuthorizerService.AuthorizeForTenancy(new Empty());
