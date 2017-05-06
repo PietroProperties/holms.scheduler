@@ -74,7 +74,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="HOLMS.Platform, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HOLMS.Platform.1.0.3-v167\lib\netstandard1.5\HOLMS.Platform.dll</HintPath>
+      <HintPath>..\packages\HOLMS.Platform.1.0.3-v185\lib\netstandard1.5\HOLMS.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -254,11 +254,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="Jobs\AuthorizationCleanupJob.cs" />
     <Compile Include="Jobs\GuaranteeAuthorizerJob.cs" />
     <Compile Include="Jobs\OTASyncJob.cs" />
     <Compile Include="SchedulerService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Schedulers\CardAuthorizationCleanupScheduler.cs" />
     <Compile Include="Schedulers\GuaranteeAuthorizerScheduler.cs" />
     <Compile Include="Schedulers\OTASyncScheduler.cs" />
     <Compile Include="Support\Exceptions\RegistrySettingNotFoundException.cs" />
