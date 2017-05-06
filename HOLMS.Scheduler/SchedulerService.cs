@@ -31,6 +31,7 @@ namespace HOLMS.Scheduler {
             _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));
+            _jobSchedulers.Add(new CardAuthorizationCleanupScheduler(logger, _schedulerFactory));
 
             logger.LogInformation("Passing command-line arguments to tasks");
 
