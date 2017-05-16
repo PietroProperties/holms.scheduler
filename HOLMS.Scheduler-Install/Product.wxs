@@ -26,6 +26,10 @@
     <Property Id="SERVICEPASSWORDVALUE" Value="NotSet">
       <RegistrySearch Id="ServicePasswordRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="ServicePassword"/>
     </Property>
+    <Property Id="RABBITSERVICEDEPENDENCYVALUE" Value="RabbitMQ">
+      <RegistrySearch Id="RabbitServiceDependencyLookup" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService" Type="raw" Name="DependOnService" />
+    </Property>
+    
     <DirectoryRef Id="TARGETDIR">
       <Component Id="RegistrySettings" Guid="E9CE6A56-10F1-4A0F-9A49-8D3C3A8504EC" Permanent="yes" Win64="yes">
         <RegistryKey Root="HKLM" Key ="SOFTWARE\HOLMS\SchedulerSvc">
@@ -33,6 +37,9 @@
           <RegistryValue Type="string" Name="IIFExportPath" Value="[IIFEXPORTDIRVALUE]" />
           <RegistryValue Type="string" Name="ServiceUsername" Value="[SERVICEUSERNAMEVALUE]" />
           <RegistryValue Type="string" Name="ServicePassword" Value="[SERVICEPASSWORDVALUE]" />
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key ="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService">
+          <RegistryValue Type="multiString" Name="DependOnService" Value="[RABBITSERVICEDEPENDENCYVALUE]" />
         </RegistryKey>
       </Component>
     </DirectoryRef>
@@ -105,9 +112,10 @@
               <File Id="Zlib.Portable.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Zlib.Portable.dll" Checksum="yes" />
               
               <ServiceInstall Id ="HOLMSSchedulerService" Name="HOLMSSchedulerService" Type="ownProcess"
-                              DisplayName="HOLMS-Scheduler-Service" Start="demand" Account="NT AUTHORITY\LocalService" ErrorControl="normal" 
+                              DisplayName="HOLMS-Scheduler-Service" Start="auto" Account="NT AUTHORITY\LocalService" ErrorControl="normal" 
                               Interactive="no" Vital="yes"
                               Description="Scheduler Service for the the HOLMS system.">
+                <util:ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType ="restart" RestartServiceDelayInSeconds ="10" />
               </ServiceInstall>
               <util:EventSource Name="Scheduler" Log="HOLMS"
                                 EventMessageFile="[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]EventLogMessages.dll"/>
