@@ -1,4 +1,5 @@
 ﻿using HOLMS.Application.Client;
+using HOLMS.Platform.Application.Client;
 using HOLMS.Scheduler.Jobs;
 using HOLMS.Scheduler.Tests;
 using Moq;
