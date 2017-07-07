@@ -32,46 +32,11 @@ namespace HOLMS.Scheduler.Jobs {
             // Export the range [last exported+1, today-1]
             var start = jobStatus.LastExportCompleted.ToDateTime().AddDays(1);
             var end = DateTime.Today.AddDays(-1);
-            var pathString = context.JobDetail.JobDataMap.GetString(OutputPathKey);
-
-            WriteReport(ac, new InclusiveCalendarDateRange(start, end), pathString);
-
-            ac.AccountingTxnSvc.UpdateLastExportRunTime(end.ToTS());
-        }
-
-
-        private void WriteReport(ApplicationClient ac, InclusiveCalendarDateRange dr, string pathString) {
-            var properties = ac.PropertySvc.All(new Empty()).Properties;
-
-            foreach (var prop in properties) {
-                var req = new AccountTxnExportSvcGetPropertyTransactionsInFormatRequest {
-                    Property = prop.EntityId,
-                    DateRange = dr.ToPB,
-                    Format = AccountingTransactionExportFormat.ExportFormatIif
-                };
-
-                var iifBlob = ac.AccountingTxnSvc.GetPropertyTransactionsInFormat(req);
-
-                var filenameString = Path.Combine(pathString, MakeExportFilename(prop, dr));
-                var fileinfo = new FileInfo(filenameString);
-                fileinfo.Directory.Create();
-
-                File.WriteAllBytes(fileinfo.FullName, iifBlob.ExportedTransactions.ToByteArray());
-            }
-        }
-
-        private string MakeExportFilename(Property prop, InclusiveCalendarDateRange dr) {
-            var filestring = prop.Description.Replace(" ", string.Empty) +
-                dr.StartDateTime.ToString(@"MM-dd") +
-                "--" +
-                dr.EndDateTime.ToString(@"MM-dd") +
-                ".iif";
-            // Clean the string of any invalid characters so that mr. smartypants at the front
-            // desk can't crash the service by naming the property <>?HO||ow
-            foreach (char c in Path.GetInvalidFileNameChars()) {
-                filestring.Replace(c.ToString(), "");
-            }
-            return filestring;
+            ac.AccountingTxnSvc.UploadPropertyTransactionsInFormat(new AccountTxnExportSvcUploadPropertyTransactionsInFormatRequest() {
+                DateRange = new InclusiveCalendarDateRange(start, end).ToPB,
+                UpdateLastRunDate = true,
+                Format = AccountingTransactionExportFormat.ExportFormatIif
+            });
         }
     }
 }
