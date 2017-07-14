@@ -17,9 +17,6 @@
     <Property Id="APPSVCIPPORTVALUE" Value="NotSet">
       <RegistrySearch Id="AppSvcIpPortLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="AppSvcIPPort" />
     </Property>
-    <Property Id="IIFEXPORTDIRVALUE" Value="NotSet">
-      <RegistrySearch Id="IIFExportDirRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="IIFExportPath"/>
-    </Property>
     <Property Id="SERVICEUSERNAMEVALUE" Value="NotSet">
       <RegistrySearch Id="ServiceUsernameRegistryLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="ServiceUsername"/>
     </Property>
@@ -34,7 +31,6 @@
       <Component Id="RegistrySettings" Guid="E9CE6A56-10F1-4A0F-9A49-8D3C3A8504EC" Permanent="yes" Win64="yes">
         <RegistryKey Root="HKLM" Key ="SOFTWARE\HOLMS\SchedulerSvc">
           <RegistryValue Type="string" Name="AppSvcIPPort" Value="[APPSVCIPPORTVALUE]" />
-          <RegistryValue Type="string" Name="IIFExportPath" Value="[IIFEXPORTDIRVALUE]" />
           <RegistryValue Type="string" Name="ServiceUsername" Value="[SERVICEUSERNAMEVALUE]" />
           <RegistryValue Type="string" Name="ServicePassword" Value="[SERVICEPASSWORDVALUE]" />
         </RegistryKey>

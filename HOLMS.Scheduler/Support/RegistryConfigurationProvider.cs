@@ -7,7 +7,9 @@ namespace HOLMS.Scheduler.Support {
 
         public static void VerifyConfiguration(ILogger l) {
             try {
-                GetIIFExportDirectoryString();
+                GetAppSvcIPPort();
+                GetServicePassword();
+                GetServiceUsername();
             } catch(RegistrySettingNotFoundException ex) {
                 l.LogError("Expected registry key not found.", ex);
                 throw;
@@ -15,10 +17,6 @@ namespace HOLMS.Scheduler.Support {
                 l.LogError("An expected registry key has not been configured.", ex);
                 throw;
             }
-        }
-
-        public static string GetIIFExportDirectoryString() {
-            return NativeMethods.GetRegistryEntry(RegPath, "IIFExportPath");
         }
 
         public static string GetAppSvcIPPort() {
