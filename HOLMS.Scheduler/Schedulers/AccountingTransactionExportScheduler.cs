@@ -5,12 +5,8 @@ using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {
     class AccountingTransactionExportScheduler : TaskSchedulerBase {
-
-        private readonly string _outputPath;
-
         public AccountingTransactionExportScheduler(ILogger logger, ISchedulerFactory sf)
                 : base(logger, sf) {
-            _outputPath = RegistryConfigurationProvider.GetIIFExportDirectoryString();
         }
 
         public override void Schedule() {
@@ -20,7 +16,6 @@ namespace HOLMS.Scheduler.Schedulers {
 
         private void ScheduleNightlyReport() {
             var basedata = new JobDataMap() {
-                {AccountingTransactionExportJob.OutputPathKey, _outputPath},
                 {AccountingTransactionExportJob.RunTypeKey, "Auto" }
             };
 
