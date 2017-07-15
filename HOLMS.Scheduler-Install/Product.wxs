@@ -112,6 +112,7 @@
                               Interactive="no" Vital="yes"
                               Description="Scheduler Service for the the HOLMS system.">
                 <util:ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType ="restart" RestartServiceDelayInSeconds ="10" />
+                <ServiceDependency Id="HOLMSApplicationService" />
               </ServiceInstall>
               <util:EventSource Name="Scheduler" Log="HOLMS"
                                 EventMessageFile="[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]EventLogMessages.dll"/>
