@@ -87,7 +87,6 @@
               <File Id="System.Diagnostics.Tracing.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Diagnostics.Tracing.dll" Checksum="yes" />
               <File Id="System.Globalization.Calendars.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Globalization.Calendars.dll" Checksum="yes" />
               <File Id="System.IdentityModel.Tokens.Jwt.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IdentityModel.Tokens.Jwt.dll" Checksum="yes" />
-              <File Id="System.Interactive.Async.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Interactive.Async.dll" Checksum="yes" />
               <File Id="System.IO.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.dll" Checksum="yes" />
               <File Id="System.IO.Compression.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.Compression.dll" Checksum="yes" />
               <File Id="System.IO.Compression.ZipFile.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.IO.Compression.ZipFile.dll" Checksum="yes" />
