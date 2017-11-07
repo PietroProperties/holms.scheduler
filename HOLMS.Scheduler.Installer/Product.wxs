@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="*" Name="HOLMS Scheduler Background Service" Language="1033" Version="$(var.FullVersion)" Manufacturer="shortbar" UpgradeCode="0b265212-33b0-4c29-88e4-0451c1775a08">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
+  <Product Id="*" Name="HOLMS Scheduler Background Service" Language="1033" Version="$(var.FullVersion)" Manufacturer="shortbar" UpgradeCode="0b265212-33b0-4c29-88e4-0451c1775a08">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
     <Media Id="1" Cabinet="HOLMSServices.cab" EmbedCab="yes" />
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
-		<Feature Id="ProductFeature" Title="HOLMS.Scheduler_Install" Level="1" Display="expand" ConfigurableDirectory="INSTALLFOLDER">
+    <Feature Id="ProductFeature" Title="HOLMS.Scheduler_Install" Level="1" Display="expand" ConfigurableDirectory="INSTALLFOLDER">
       <ComponentRef Id="SchedulerService"/>
       <ComponentRef Id="RegistrySettings"/>
-		</Feature>
-	</Product>
-  
+    </Feature>
+  </Product>
+
   <Fragment>
     <Property Id="APPSVCIPPORTVALUE" Value="NotSet">
       <RegistrySearch Id="AppSvcIpPortLookup" Root="HKLM" Key="SOFTWARE\HOLMS\SchedulerSvc" Type="raw" Name="AppSvcIPPort" />
@@ -26,7 +26,7 @@
     <Property Id="RABBITSERVICEDEPENDENCYVALUE" Value="RabbitMQ">
       <RegistrySearch Id="RabbitServiceDependencyLookup" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService" Type="raw" Name="DependOnService" />
     </Property>
-    
+
     <DirectoryRef Id="TARGETDIR">
       <Component Id="RegistrySettings" Guid="E9CE6A56-10F1-4A0F-9A49-8D3C3A8504EC" Permanent="yes" Win64="yes">
         <RegistryKey Root="HKLM" Key ="SOFTWARE\HOLMS\SchedulerSvc">
@@ -41,10 +41,10 @@
     </DirectoryRef>
   </Fragment>
 
-	<Fragment>
-	<PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64" />
-	<Directory Id="TARGETDIR" Name="SourceDir">
-	<Directory Id="ProgramFiles64Folder">
+  <Fragment>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="HOLMS">
           <Directory Id="ServiceDirectory" Name="Scheduler">
             <Component Id="SchedulerService" Guid="5772AD2E-20C4-49EE-A251-91CA3F171C69" Win64="yes">
@@ -63,7 +63,7 @@
               <File Id="Google.Protobuf.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Google.Protobuf.dll" Checksum="yes" />
               <File Id="Grpc.Auth.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Grpc.Auth.dll" Checksum="yes" />
               <File Id="Grpc.Core.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Grpc.Core.dll" Checksum="yes" />
-                  <File Id="grpc_csharp_ext.x64.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\grpc_csharp_ext.x64.dll" Checksum="yes" />
+              <File Id="grpc_csharp_ext.x64.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\grpc_csharp_ext.x64.dll" Checksum="yes" />
               <File Id="HOLMS.Platform.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\HOLMS.Platform.dll" Checksum="yes" />
               <File Id="log4net.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\log4net.dll" Checksum="yes" />
               <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Microsoft.Extensions.Configuration.Abstractions.dll" Checksum="yes" />
@@ -105,9 +105,9 @@
               <File Id="System.Security.Cryptography.Primitives.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.Primitives.dll" Checksum="yes" />
               <File Id="System.Security.Cryptography.X509Certificates.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\System.Security.Cryptography.X509Certificates.dll" Checksum="yes" />
               <File Id="Zlib.Portable.dll" Source="..\..\..\HOLMS.Scheduler\bin\$(var.Configuration)\Zlib.Portable.dll" Checksum="yes" />
-              
+
               <ServiceInstall Id ="HOLMSSchedulerService" Name="HOLMSSchedulerService" Type="ownProcess"
-                              DisplayName="HOLMS-Scheduler-Service" Start="auto" Account="NT AUTHORITY\LocalService" ErrorControl="normal" 
+                              DisplayName="HOLMS-Scheduler-Service" Start="auto" Account="NT AUTHORITY\LocalService" ErrorControl="normal"
                               Interactive="no" Vital="yes"
                               Description="Scheduler Service for the the HOLMS system.">
                 <util:ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType ="restart" RestartServiceDelayInSeconds ="10" />
@@ -120,7 +120,7 @@
             </Component>
           </Directory>
         </Directory>
-			</Directory>
-		</Directory>
-	</Fragment>
+      </Directory>
+    </Directory>
+  </Fragment>
 </Wix>
