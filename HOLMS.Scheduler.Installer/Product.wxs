@@ -71,6 +71,7 @@
               <File Name="Microsoft.Extensions.Logging.Abstractions.dll" Checksum="yes" />
               <File Name="Microsoft.Extensions.Logging.Console.dll" Checksum="yes" />
               <File Name="Microsoft.Extensions.Logging.EventLog.dll" Checksum="yes" />
+              <File Name="Microsoft.Extensions.Options.dll" Checksum="yes" />
               <File Name="Microsoft.Extensions.Primitives.dll" Checksum="yes" />
               <File Name="Microsoft.IdentityModel.Logging.dll" Checksum="yes" />
               <File Name="Microsoft.IdentityModel.Tokens.dll" Checksum="yes" />
