@@ -48,41 +48,42 @@
         <Directory Id="INSTALLFOLDER" Name="HOLMS">
           <Directory Id="ServiceDirectory" Name="Scheduler" FileSource="..\HOLMS.Scheduler\bin\$(var.Configuration)\net471">
             <Component Id="SchedulerService" Guid="5772AD2E-20C4-49EE-A251-91CA3F171C69" Win64="yes">
-              <File Name="Castle.Core.dll" Checksum="yes" />
+              <File Name="Castle.Core.dll" />
               <File Name="Common.Logging.Core.dll" />
               <File Name="Common.Logging.dll" />
-              <File Name="Google.Apis.Auth.dll" Checksum="yes" />
-              <File Name="Google.Apis.Auth.PlatformServices.dll" Checksum="yes" />
-              <File Name="Google.Apis.Core.dll" Checksum="yes" />
-              <File Name="Google.Apis.dll" Checksum="yes" />
-              <File Name="Google.Apis.PlatformServices.dll" Checksum="yes" />
-              <File Name="Google.Protobuf.dll" Checksum="yes" />
-              <File Name="Grpc.Auth.dll" Checksum="yes" />
-              <File Name="Grpc.Core.dll" Checksum="yes" />
-              <File Name="HOLMS.Platform.dll" Checksum="yes" />
+              <File Name="Google.Apis.Auth.dll" />
+              <File Name="Google.Apis.Auth.PlatformServices.dll" />
+              <File Name="Google.Apis.Core.dll" />
+              <File Name="Google.Apis.dll" />
+              <File Name="Google.Apis.PlatformServices.dll" />
+              <File Name="Google.Protobuf.dll" />
+              <File Name="grpc_csharp_ext.x64.dll" />
+              <File Name="Grpc.Auth.dll" />
+              <File Name="Grpc.Core.dll" />
+              <File Name="HOLMS.Platform.dll" />
               <File Id="Scheduler" Name="HOLMS.Scheduler.exe" KeyPath="yes" DiskId="1"/>
               <File Name="HOLMS.Scheduler.exe.config" />
-              <File Name="Microsoft.Extensions.Configuration.Abstractions.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Logging.Abstractions.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Logging.Console.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Logging.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Logging.EventLog.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Options.dll" Checksum="yes" />
-              <File Name="Microsoft.Extensions.Primitives.dll" Checksum="yes" />
-              <File Name="Microsoft.IdentityModel.Logging.dll" Checksum="yes" />
-              <File Name="Microsoft.IdentityModel.Tokens.dll" Checksum="yes" />
-              <File Name="Moq.dll" Checksum="yes" />
-              <File Name="Newtonsoft.Json.dll" Checksum="yes" />
-              <File Name="NodaTime.dll" Checksum="yes" />
-              <File Name="nunit.framework.dll" Checksum="yes" />
+              <File Name="Microsoft.Extensions.Configuration.Abstractions.dll" />
+              <File Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+              <File Name="Microsoft.Extensions.Logging.Abstractions.dll" />
+              <File Name="Microsoft.Extensions.Logging.Console.dll" />
+              <File Name="Microsoft.Extensions.Logging.dll" />
+              <File Name="Microsoft.Extensions.Logging.EventLog.dll" />
+              <File Name="Microsoft.Extensions.Options.dll" />
+              <File Name="Microsoft.Extensions.Primitives.dll" />
+              <File Name="Microsoft.IdentityModel.Logging.dll" />
+              <File Name="Microsoft.IdentityModel.Tokens.dll" />
+              <File Name="Moq.dll" />
+              <File Name="Newtonsoft.Json.dll" />
+              <File Name="NodaTime.dll" />
+              <File Name="nunit.framework.dll" />
               <File Name="Quartz.dll" />
-              <File Name="System.IdentityModel.Tokens.Jwt.dll" Checksum="yes" />
+              <File Name="System.IdentityModel.Tokens.Jwt.dll" />
               <File Name="System.Interactive.Async.dll" />
               <File Name="System.Runtime.CompilerServices.Unsafe.dll" />
-              <File Name="System.Runtime.dll" Checksum="yes" />
-              <File Name="System.Runtime.Extensions.dll" Checksum="yes" />
-              <File Name="Zlib.Portable.dll" Checksum="yes" />
+              <File Name="System.Runtime.dll" />
+              <File Name="System.Runtime.Extensions.dll" />
+              <File Name="Zlib.Portable.dll" />
 
               <ServiceInstall Id ="HOLMSSchedulerService" Name="HOLMSSchedulerService" Type="ownProcess"
                               DisplayName="HOLMS-Scheduler-Service" Start="auto" Account="NT AUTHORITY\LocalService" ErrorControl="normal"
