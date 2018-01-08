@@ -27,7 +27,6 @@ namespace HOLMS.Scheduler {
 
             logger.LogInformation("SchedulerService starting. Creating tasks");
             _jobSchedulers.Add(new AccountingTransactionExportScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new RevenueAccrualScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(logger, _schedulerFactory));
             _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));

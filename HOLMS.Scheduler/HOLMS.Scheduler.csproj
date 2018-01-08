@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Grpc.Core" Version="1.7.1" />
-    <PackageReference Include="HOLMS.Platform" Version="1.1.0-v322" />
+    <PackageReference Include="HOLMS.Platform" Version="1.1.0-v349" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="2.0.0" />
     <PackageReference Include="NUnit" Version="3.9.0" />
