@@ -1,10 +1,12 @@
-﻿using HOLMS.Scheduler.Schedulers;
+﻿using System;
+using HOLMS.Scheduler.Schedulers;
 using HOLMS.Scheduler.Support;
 using Quartz;
 using Quartz.Collection;
 using Quartz.Impl;
 using System.Linq;
 using System.ServiceProcess;
+using HOLMS.Scheduler.Jobs;
 using Microsoft.Extensions.Logging;
 
 namespace HOLMS.Scheduler {
@@ -26,14 +28,32 @@ namespace HOLMS.Scheduler {
             RegistryConfigurationProvider.VerifyConfiguration(logger);
 
             logger.LogInformation("SchedulerService starting. Creating tasks");
-            _jobSchedulers.Add(new AccountingTransactionExportScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new HousekeepingDirtyRolloverScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new GuaranteeAuthorizerScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new OTASyncScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new CardAuthorizationCleanupScheduler(logger, _schedulerFactory));
-            _jobSchedulers.Add(new DailyOpExEmailScheduler(logger, _schedulerFactory));
+            
+            // Run every n minutes
+            _jobSchedulers.Add(new RecurringJobScheduler<DailyOpExEmailJob>(logger, _schedulerFactory,
+                DailyOpExEmailJob.JobGroupString, DailyOpExEmailJob.JobNameString,
+                DailyOpExEmailJob.JobPeriod));
+            _jobSchedulers.Add(new RecurringJobScheduler<HousekeepingDirtyRolloverJob>(logger,
+                _schedulerFactory, HousekeepingDirtyRolloverJob.JobGroupString,
+                HousekeepingDirtyRolloverJob.JobNameString, HousekeepingDirtyRolloverJob.JobPeriod));
+            _jobSchedulers.Add(new RecurringJobScheduler<OTASyncJob>(logger, _schedulerFactory,
+                OTASyncJob.JobGroupString, OTASyncJob.JobNameString, OTASyncJob.JobPeriod));
+            _jobSchedulers.Add(new RecurringJobScheduler<SupplyHistorySnapshotJob>(
+                logger, _schedulerFactory, SupplyHistorySnapshotJob.JobGroupString,
+                SupplyHistorySnapshotJob.JobNameString, SupplyHistorySnapshotJob.JobPeriod));
 
-            logger.LogInformation("Passing command-line arguments to tasks");
+            // Run at same time every day
+            _jobSchedulers.Add(new FixedTimeOfDayScheduler<AccountingTransactionExportJob>(
+                logger, _schedulerFactory,
+                AccountingTransactionExportJob.JobGroupString,
+                AccountingTransactionExportJob.JobNameString,
+                AccountingTransactionExportJob.RunAtTimeOfDay));
+            _jobSchedulers.Add(new FixedTimeOfDayScheduler<AuthorizationCleanupJob>(
+                logger, _schedulerFactory, AuthorizationCleanupJob.JobGroupString,
+                AuthorizationCleanupJob.JobNameString, AuthorizationCleanupJob.RunAtTimeOfDay));
+            _jobSchedulers.Add(new FixedTimeOfDayScheduler<GuaranteeAuthorizerJob>(
+                logger, _schedulerFactory, GuaranteeAuthorizerJob.JobGroupString,
+                GuaranteeAuthorizerJob.JobNameString, GuaranteeAuthorizerJob.RunAtTimeOfDay));
 
             logger.LogInformation("Scheduling tasks");
             foreach (var t in _jobSchedulers) {

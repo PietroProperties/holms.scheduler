@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using System;
+using Google.Protobuf.WellKnownTypes;
 using HOLMS.Application.Client;
 using Quartz;
 
@@ -6,8 +7,7 @@ namespace HOLMS.Scheduler.Jobs {
     public class HousekeepingDirtyRolloverJob : QuartzJobBase {
         public const string JobGroupString = "HouseOps";
         public const string JobNameString = "DirtyCleanTracking";
-
-        public const int JobPeriodMins = 60;
+        public static TimeSpan JobPeriod => new TimeSpan(1, 0, 0);
 
         public override string JobGroup => JobGroupString;
         public override string JobName => JobNameString;
