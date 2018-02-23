@@ -29,16 +29,15 @@ namespace HOLMS.Scheduler.Schedulers {
             Logger.LogInformation($"Scheduling recurring job {typeof(T)} to run once per {_period.TotalMinutes} minutes");
 
             var trigger = TriggerBuilder.Create()
-                .WithIdentity($"{_jobGroupString}{_jobName}Periodic", _jobGroupString)
-                .ForJob(job.Key)
+                .WithIdentity($"{_jobGroupString}{_jobName}Recurring", _jobGroupString)
+                .ForJob(_jobName, _jobGroupString)
                 .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Second))
                 .WithSimpleSchedule(x => x
                     .WithInterval(_period)
                     .RepeatForever())
                 .Build();
 
-            sched.ScheduleJob(trigger);
+            sched.ScheduleJob(job, trigger);
         }
-
     }
 }

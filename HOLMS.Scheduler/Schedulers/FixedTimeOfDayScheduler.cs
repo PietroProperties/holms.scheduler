@@ -29,14 +29,13 @@ namespace HOLMS.Scheduler.Schedulers {
             Logger.LogInformation($"Scheduling fixed time of day job {typeof(T)} to run every day at {_timeOfDay.TotalHours} past midnight system time");
 
             var trigger = TriggerBuilder.Create()
-                .WithIdentity($"{_jobGroupString}{_jobName}Periodic", _jobGroupString)
-                .ForJob(job.Key)
+                .WithIdentity($"{_jobGroupString}{_jobName}FixedTimeOfDay", _jobGroupString)
+                .ForJob(_jobName, _jobGroupString)
                 .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Second))
                 .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(_timeOfDay.Hours, _timeOfDay.Minutes))
                 .Build();
 
-            sched.ScheduleJob(trigger);
+            sched.ScheduleJob(job, trigger);
         }
-
     }
 }
