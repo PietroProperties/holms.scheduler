@@ -57,9 +57,9 @@
               <File Name="Google.Apis.dll" />
               <File Name="Google.Apis.PlatformServices.dll" />
               <File Name="Google.Protobuf.dll" />
-              <File Name="grpc_csharp_ext.x64.dll" />
               <File Name="Grpc.Auth.dll" />
               <File Name="Grpc.Core.dll" />
+              <File Name="grpc_csharp_ext.x64.dll" />
               <File Name="HOLMS.Platform.dll" />
               <File Id="Scheduler" Name="HOLMS.Scheduler.exe" KeyPath="yes" DiskId="1"/>
               <File Name="HOLMS.Scheduler.exe.config" />
@@ -78,11 +78,21 @@
               <File Name="NodaTime.dll" />
               <File Name="nunit.framework.dll" />
               <File Name="Quartz.dll" />
+              <File Name="System.Data.Common.dll" />
+              <File Name="System.Diagnostics.StackTrace.dll" />
+              <File Name="System.Diagnostics.Tracing.dll" />
+              <File Name="System.Globalization.Extensions.dll" />
               <File Name="System.IdentityModel.Tokens.Jwt.dll" />
               <File Name="System.Interactive.Async.dll" />
+              <File Name="System.IO.Compression.dll" />
+              <File Name="System.Net.Http.dll" />
+              <File Name="System.Net.Sockets.dll" />
               <File Name="System.Runtime.CompilerServices.Unsafe.dll" />
-              <File Name="System.Runtime.dll" />
-              <File Name="System.Runtime.Extensions.dll" />
+              <File Name="System.Runtime.Serialization.Primitives.dll" />
+              <File Name="System.Security.Cryptography.Algorithms.dll" />
+              <File Name="System.Security.SecureString.dll" />
+              <File Name="System.Threading.Overlapped.dll" />
+              <File Name="System.Xml.XPath.XDocument.dll" />
               <File Name="Zlib.Portable.dll" />
 
               <ServiceInstall Id ="HOLMSSchedulerService" Name="HOLMSSchedulerService" Type="ownProcess"
