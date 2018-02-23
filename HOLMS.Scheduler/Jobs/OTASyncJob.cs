@@ -10,6 +10,7 @@ namespace HOLMS.Scheduler.Jobs {
     class OTASyncJob : QuartzJobBase {
         public const string JobGroupString = "Booking";
         public const string JobNameString = "OTASync";
+        public static TimeSpan JobPeriod => new TimeSpan(0, 3, 0);
 
         public override string JobGroup => JobGroupString;
 

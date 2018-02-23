@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
 using Google.Protobuf.WellKnownTypes;
 using HOLMS.Application.Client;
-using HOLMS.Support.Conversions;
 using HOLMS.Support.Time;
 using HOLMS.Types.Money.Accounting;
 using HOLMS.Types.Money.RPC;
-using HOLMS.Types.TenancyConfig;
-using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Jobs {
@@ -21,6 +17,7 @@ namespace HOLMS.Scheduler.Jobs {
 
         public override string JobGroup => JobGroupString;
         public override string JobName => JobNameString;
+        public static TimeSpan RunAtTimeOfDay => new TimeSpan(1, 0, 0);
 
         protected override void ExecuteLogged(IJobExecutionContext context, ApplicationClient ac) {
             var jobStatus = ac.AccountingTxnSvc.GetExportJobStatus(new Empty());
