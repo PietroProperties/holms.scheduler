@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using HOLMS.Scheduler.Schedulers;
 using HOLMS.Scheduler.Support;
 using Quartz;
@@ -27,7 +28,9 @@ namespace HOLMS.Scheduler {
             var logger = Globals.Logger;
             RegistryConfigurationProvider.VerifyConfiguration(logger);
 
-            logger.LogInformation("SchedulerService starting. Creating tasks");
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            logger.LogInformation($"Starting HOLMS Scheduler Service {fvi.FileVersion}. Creating tasks.");
             
             // Run every n minutes
             _jobSchedulers.Add(new RecurringJobScheduler<DailyOpExEmailJob>(logger, _schedulerFactory,
