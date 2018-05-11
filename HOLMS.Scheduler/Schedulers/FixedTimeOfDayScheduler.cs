@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {
-    class FixedTimeOfDayScheduler<T> : TaskSchedulerBase where T : QuartzJobBase {
+    class FixedTimeOfDayScheduler<T> : TaskSchedulerBase where T : IJob {
         private readonly string _jobGroupString;
         private readonly string _jobName;
         private readonly TimeSpan _timeOfDay;
@@ -16,14 +16,13 @@ namespace HOLMS.Scheduler.Schedulers {
             _timeOfDay = jobTimeOfDay;
         }
 
-        public override void Schedule() {
+        public override void Schedule(JobDataMap jdm) {
             var sched = SF.GetScheduler();
-            var basedata = new JobDataMap();
 
             var job = JobBuilder
                 .Create<T>()
                 .WithIdentity(_jobName, _jobGroupString)
-                .SetJobData(basedata)
+                .SetJobData(jdm)
                 .Build();
 
             Logger.LogInformation($"Scheduling fixed time of day job {typeof(T)} to run every day at {_timeOfDay.TotalHours} past midnight system time");

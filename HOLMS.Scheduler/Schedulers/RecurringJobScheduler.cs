@@ -16,14 +16,13 @@ namespace HOLMS.Scheduler.Schedulers {
             _period = jobPeriod;
         }
 
-        public override void Schedule() {
+        public override void Schedule(JobDataMap jdm) {
             var sched = SF.GetScheduler();
-            var basedata = new JobDataMap();
 
             var job = JobBuilder
                 .Create<T>()
                 .WithIdentity(_jobName, _jobGroupString)
-                .SetJobData(basedata)
+                .SetJobData(jdm)
                 .Build();
 
             Logger.LogInformation($"Scheduling recurring job {typeof(T)} to run once per {_period.TotalMinutes} minutes");

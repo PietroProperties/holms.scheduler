@@ -7,6 +7,7 @@ using Quartz.Collection;
 using Quartz.Impl;
 using System.Linq;
 using System.ServiceProcess;
+using Google.Protobuf.WellKnownTypes;
 using HOLMS.Scheduler.Jobs;
 using Microsoft.Extensions.Logging;
 
@@ -23,7 +24,7 @@ namespace HOLMS.Scheduler {
 
         protected override void OnStart(string[] args) {
             if (args.Contains("--debugger")) {
-                System.Diagnostics.Debugger.Launch();
+                Debugger.Launch();
             }
             var logger = Globals.Logger;
             RegistryConfigurationProvider.VerifyConfiguration(logger);
@@ -61,6 +62,19 @@ namespace HOLMS.Scheduler {
             logger.LogInformation("Scheduling tasks");
             foreach (var t in _jobSchedulers) {
                 t.Schedule();
+            }
+
+            logger.LogInformation("Scheduling rollover chime job");
+            var propResp = Globals.AC.PropertySvc.All(new Empty());
+            foreach (var p in propResp.Properties) {
+                var checkinTs = p.CheckinTimeOfDay.ToTimeSpan();
+                var s = new FixedTimeOfDayScheduler<CheckinChimeJob>(logger, _schedulerFactory,
+                    CheckinChimeJob.JobGroup,
+                    CheckinChimeJob.JobName(p.EntityId),
+                    // Run 1 minute after checkin
+                    // https://www.youtube.com/watch?v=2AKhvbBuvVw
+                    checkinTs + new TimeSpan(0, 0, 1, 0));
+                s.Schedule(CheckinChimeJob.MakeMap(p.EntityId));
             }
 
             logger.LogInformation("Starting main execution loop");

@@ -1,5 +1,4 @@
-﻿using HOLMS.Application.Client;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {
@@ -7,7 +6,11 @@ namespace HOLMS.Scheduler.Schedulers {
         protected readonly ISchedulerFactory SF;
         protected ILogger Logger;
 
-        public abstract void Schedule();
+        public abstract void Schedule(JobDataMap jdm);
+
+        public void Schedule() {
+            Schedule(new JobDataMap());
+        }
 
         protected TaskSchedulerBase(ILogger logger, ISchedulerFactory scheduler) {
             SF = scheduler;
