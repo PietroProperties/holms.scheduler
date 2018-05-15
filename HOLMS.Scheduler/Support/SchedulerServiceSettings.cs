@@ -1,5 +1,5 @@
 ﻿using System;
-using HOLMS.Application.Client;
+using HOLMS.Platform.Client;
 using Microsoft.Extensions.Logging;
 
 namespace HOLMS.Scheduler.Support {

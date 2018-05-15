@@ -1,7 +1,7 @@
 ﻿using System;
 using Google.Protobuf.WellKnownTypes;
-using HOLMS.Application.Client;
-using HOLMS.Support.Time;
+using HOLMS.Platform.Client;
+using HOLMS.Platform.Support.Time;
 using HOLMS.Types.Money.Accounting;
 using HOLMS.Types.Money.RPC;
 using Quartz;

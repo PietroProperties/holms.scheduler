@@ -17,19 +17,18 @@ namespace HOLMS.Scheduler.Jobs {
             });
 
         public PropertyIndicator GetProp(IJobExecutionContext ctx) =>
-            new PropertyIndicator(new Guid((string)ctx.Get(PropIndicatorKey)));
+            new PropertyIndicator(new Guid(ctx.MergedJobDataMap.GetString(PropIndicatorKey)));
 
         public void Execute(IJobExecutionContext ctx) {
             var pi = GetProp(ctx);
 
             try {    
                 var ac = Globals.AC;
-                ac.Logger.LogInformation(JobName(pi) + " execution started");
-                ac.Logger.LogInformation($"Checkin chime. pi={pi.GuidID}");
-                ac.Logger.LogInformation(JobName(pi) + " execution completed");
+                ac.Logger.LogInformation($"Checkin chime (opsday start). pi={pi.GuidID}");
+                ac.ChimeSvcClient.ChimeOpsdayStart(pi);
             } catch (Exception ex) {
                 var logger = Globals.Logger;
-                logger.LogError(new EventId(), ex, $"Caught unhandled exception in {JobGroup}:{JobName(pi)}");
+                logger.LogError(new EventId(), ex, $"Caught unhandled exception in {JobGroup}:{pi.GuidID}");
                 logger.LogError("Re-throwing to abort the job");
 
                 throw;

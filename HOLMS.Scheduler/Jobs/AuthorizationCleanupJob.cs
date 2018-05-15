@@ -1,6 +1,6 @@
 ﻿using System;
 using Google.Protobuf.WellKnownTypes;
-using HOLMS.Application.Client;
+using HOLMS.Platform.Client;
 using Microsoft.Extensions.Logging;
 using Quartz;
 

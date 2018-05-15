@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace HOLMS.Scheduler.Schedulers {
-    class RecurringJobScheduler<T> : TaskSchedulerBase where T : QuartzJobBase {
+    class RecurringJobScheduler<T> : TaskSchedulerBase where T : IJob {
         private readonly string _jobGroupString;
         private readonly string _jobName;
         private readonly TimeSpan _period;

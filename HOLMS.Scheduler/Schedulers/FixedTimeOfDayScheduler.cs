@@ -1,5 +1,4 @@
 ﻿using System;
-using HOLMS.Scheduler.Jobs;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
@@ -25,7 +24,7 @@ namespace HOLMS.Scheduler.Schedulers {
                 .SetJobData(jdm)
                 .Build();
 
-            Logger.LogInformation($"Scheduling fixed time of day job {typeof(T)} to run every day at {_timeOfDay.TotalHours} past midnight system time");
+            Logger.LogInformation($"Scheduling fixed time of day job {typeof(T)} to run every day at {_timeOfDay.TotalHours} hours past midnight system time");
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity($"{_jobGroupString}{_jobName}FixedTimeOfDay", _jobGroupString)

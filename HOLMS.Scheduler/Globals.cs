@@ -1,5 +1,5 @@
 ﻿using System;
-using HOLMS.Application.Client;
+using HOLMS.Platform.Client;
 using HOLMS.Scheduler.Support;
 using HOLMS.Types.IAM.RPC;
 using Microsoft.Extensions.Logging;

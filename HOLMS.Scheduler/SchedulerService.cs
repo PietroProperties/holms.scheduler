@@ -68,6 +68,7 @@ namespace HOLMS.Scheduler {
             var propResp = Globals.AC.PropertySvc.All(new Empty());
             foreach (var p in propResp.Properties) {
                 var checkinTs = p.CheckinTimeOfDay.ToTimeSpan();
+                logger.LogInformation($"Rollover chimes 1 minute after checkin time: {checkinTs}. desc={p.Description}");
                 var s = new FixedTimeOfDayScheduler<CheckinChimeJob>(logger, _schedulerFactory,
                     CheckinChimeJob.JobGroup,
                     CheckinChimeJob.JobName(p.EntityId),
