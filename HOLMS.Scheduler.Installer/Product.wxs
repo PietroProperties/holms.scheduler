@@ -26,6 +26,9 @@
     <Property Id="RABBITSERVICEDEPENDENCYVALUE" Value="RabbitMQ">
       <RegistrySearch Id="RabbitServiceDependencyLookup" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService" Type="raw" Name="DependOnService" />
     </Property>
+    <Property Id="APPLICATIONSERVICEDEPENDENCYVALUE" Value="HOLMSApplicationService">
+      <RegistrySearch Id="ApplicationServiceDependencyLookup" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService" Type="raw" Name="DependOnService" />
+    </Property>
 
     <DirectoryRef Id="TARGETDIR">
       <Component Id="RegistrySettings" Guid="E9CE6A56-10F1-4A0F-9A49-8D3C3A8504EC" Permanent="yes" Win64="yes">
@@ -35,7 +38,10 @@
           <RegistryValue Type="string" Name="ServicePassword" Value="[SERVICEPASSWORDVALUE]" />
         </RegistryKey>
         <RegistryKey Root="HKLM" Key ="SYSTEM\CurrentControlSet\Services\HOLMSSchedulerService">
-          <RegistryValue Type="multiString" Name="DependOnService" Value="[RABBITSERVICEDEPENDENCYVALUE]" />
+          <RegistryValue Type="multiString" Name="DependOnService">
+            <MultiStringValue>[RABBITSERVICEDEPENDENCYVALUE]</MultiStringValue>
+            <MultiStringValue>[APPLICATIONSERVICEDEPENDENCYVALUE]</MultiStringValue>
+          </RegistryValue>
         </RegistryKey>
       </Component>
     </DirectoryRef>
