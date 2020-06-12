@@ -45,6 +45,10 @@ namespace HOLMS.Scheduler {
             _jobSchedulers.Add(new RecurringJobScheduler<SupplyHistorySnapshotJob>(
                 logger, _schedulerFactory, SupplyHistorySnapshotJob.JobGroupString,
                 SupplyHistorySnapshotJob.JobNameString, SupplyHistorySnapshotJob.JobPeriod));
+            _jobSchedulers.Add(new RecurringJobScheduler<OTATimeFactorPriceSyncJob>(
+               logger, _schedulerFactory, OTATimeFactorPriceSyncJob.JobGroupString,
+               OTATimeFactorPriceSyncJob.JobNameString, OTATimeFactorPriceSyncJob.JobPeriod));
+
 
             // Run at same time every day
             _jobSchedulers.Add(new FixedTimeOfDayScheduler<AccountingTransactionExportJob>(
@@ -58,6 +62,11 @@ namespace HOLMS.Scheduler {
             _jobSchedulers.Add(new FixedTimeOfDayScheduler<GuaranteeAuthorizerJob>(
                 logger, _schedulerFactory, GuaranteeAuthorizerJob.JobGroupString,
                 GuaranteeAuthorizerJob.JobNameString, GuaranteeAuthorizerJob.RunAtTimeOfDay));
+            _jobSchedulers.Add(new FixedTimeOfDayScheduler<OTAOccupancyFactorPriceSyncJob>(
+                logger, _schedulerFactory, OTAOccupancyFactorPriceSyncJob.JobGroupString,
+                OTAOccupancyFactorPriceSyncJob.JobNameString, OTAOccupancyFactorPriceSyncJob.RunAtTimeOfDay));
+
+
 
             logger.LogInformation("Scheduling tasks");
             foreach (var t in _jobSchedulers) {
