@@ -22,7 +22,7 @@ namespace HOLMS.Scheduler {
                 var settings = new SchedulerServiceSettings(logger);
                 var ac = new ApplicationClient(settings, logger, "BQ0HIJDQ91TKCKCBV8UGPO7M5OTNIOYA7L19A6QKBGF76S0L4D4CFV4GMM9D");
                 var res = ac.StartSession(settings.GetServiceUsername(),
-                    settings.GetServicePassword()).Result;
+                    settings.GetServicePassword(), null).Result;
                 ac.Logger.LogDebug("Created app service client");
 
                 if (res != SessionSvcStartSessionResult.Success) {
