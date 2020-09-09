@@ -7,7 +7,7 @@ namespace HOLMS.Scheduler.Jobs {
     class SupplyHistorySnapshotJob : QuartzJobBase {
         public const string JobGroupString = "Supply";
         public const string JobNameString = "HistorySnapshotter";
-        public static TimeSpan JobPeriod => new TimeSpan(1, 0, 0);
+        public static TimeSpan JobPeriod => new TimeSpan(0, 5, 0);
 
         public override string JobGroup => JobGroupString;
         public override string JobName => JobNameString;
